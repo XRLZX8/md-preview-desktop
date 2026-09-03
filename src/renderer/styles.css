@@ -320,3 +320,13 @@ body {
     background: var(--bg-tertiary) !important;
     color: var(--text-primary) !important;
 }
+
+/* ===== Drag & Drop 视觉反馈 ===== */
+body.drag-over .editor-container {
+    outline: 3px dashed var(--accent-color);
+    outline-offset: -6px;
+    background: rgba(0, 122, 204, 0.05);
+}
+body.drag-over .preview-pane {
+    pointer-events: none;
+}

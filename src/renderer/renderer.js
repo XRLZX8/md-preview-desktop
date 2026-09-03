@@ -1,4 +1,4 @@
-const { ipcRenderer } = require('electron');
+const { ipcRenderer, webUtils } = require('electron');
 const path = require('path');
 const markdownIt = require('markdown-it');
 const hljs = require('highlight.js');
@@ -93,6 +93,35 @@ function setupEventListeners() {
         if (e.ctrlKey && e.key === 's') {
             e.preventDefault();
             saveCurrentFile();
+        }
+    });
+
+    // ===== Drag & Drop 文件拖入 =====
+    window.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        document.body.classList.add('drag-over');
+    });
+    window.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        document.body.classList.remove('drag-over');
+    });
+    window.addEventListener('drop', (e) => {
+        e.preventDefault();
+        document.body.classList.remove('drag-over');
+        const files = e.dataTransfer && e.dataTransfer.files;
+        if (files && files.length > 0) {
+            const file = files[0];
+            let filePath = null;
+            try {
+                // Electron 28+: webUtils.getPathForFile
+                filePath = webUtils.getPathForFile(file);
+            } catch (err) {
+                // 旧版本回退: file.path
+                filePath = file.path || null;
+            }
+            if (filePath) {
+                ipcRenderer.send('load-file', filePath);
+            }
         }
     });
 }
