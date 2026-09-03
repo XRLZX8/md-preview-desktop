@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD Preview</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>📁 History</h3>
+                <button id="clear-history" title="Clear History">🗑️</button>
+            </div>
+            <div id="history-list" class="history-list"></div>
+        </div>
+        <div class="main">
+            <div class="toolbar">
+                <button id="btn-open" title="Open File (Ctrl+O)">📂 Open</button>
+                <button id="btn-save" title="Save (Ctrl+S)">💾 Save</button>
+                <span id="current-file" class="current-file">No file opened</span>
+                <div class="toolbar-right">
+                    <button id="btn-theme" title="Toggle Theme">🌙</button>
+                </div>
+            </div>
+            <div class="editor-container">
+                <div class="editor-pane">
+                    <textarea id="editor" placeholder="Start writing Markdown here..." spellcheck="false"></textarea>
+                </div>
+                <div class="divider"></div>
+                <div class="preview-pane">
+                    <div id="preview" class="preview"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="renderer.js"></script>
+</body>
+</html>
